@@ -1,22 +1,20 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
-
 def home (request):
-    return HttpResponse ('<H1> Electronic Reviews Home Page')
+    return render(request, 'ElectronicsReviewApp/home.html')
 
 def about (request):
-    return HttpResponse ('<H1> Electronic Reviews About Us')
+    return render(request, 'ElectronicsReviewApp/about.html')
 
 def contact (request):
-    return HttpResponse ('<H1> Electronic Reviews Contact')
+    return render(request, 'ElectronicsReviewApp/contact.html')
 
 def products (request):
-    return HttpResponse ('<H1> Electronic Reviews Products')
+    return render(request, 'ElectronicsReviewApp/products.html')
 
 def register (request):
-    return HttpResponse ('<H1> Electronic Reviews Register')
+    return render(request, 'ElectronicsReviewApp/register.html')
 
 def login (request):
-    return HttpResponse ('<H1> Electronics Review Login Page')
+    return render(request, 'ElectronicsReviewApp/login.html')
 

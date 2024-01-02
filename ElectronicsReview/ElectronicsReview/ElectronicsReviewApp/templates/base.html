@@ -1,0 +1,60 @@
+{% load static %}
+
+<!-- https://tutorial.djangogirls.org/en/template_extending/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/custom-styles.css' %}">
+    <title>Electronics Review</title>
+</head>
+
+<body class="theme-dark">
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                {% include 'navbarheader.html' %}
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <section class="hero-section">
+            {% block content %}{% endblock %}  <!-- appends content block from page into base-->
+        </section>
+
+        <section class="featured-products">
+            <h2>Top Picks This Month</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </section>
+
+        <section class="latest-reviews">
+            <h2>Latest Reviews</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </section>
+
+        <section class="community-highlights">
+            <h2>Community Highlights</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </section>
+    </div>
+
+    <footer class="footer-container">
+        <div class="footer-content">
+            <p><b>LOREM FOOTHOLDER PLACEHOLDER TEXT</b></p>
+            <div class="social-links">
+                <a href="#" class="social-icon">Facebook</a>
+                <a href="#" class="social-icon">Twitter</a>
+                <a href="#" class="social-icon">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
