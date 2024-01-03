@@ -14,6 +14,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+""" Custom User Model, to support use of a profile picture and experimentation """
 class CustomUser(AbstractUser):
     profile_pic = models.ImageField(upload_to='img/', blank=True, null=True)
     
@@ -37,3 +38,8 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return self.username
+    
+""" caused startup issues, so removed, this was exploring functionality of multiple auth models """  
+""" class DefaultUserProxy(User):
+    class Meta:
+        proxy = True """

@@ -1,14 +1,13 @@
 {% extends 'base.html' %} <!-- passes contents into base.html, which has styling and functionality applied-->
 <!-- Refrenced from: https://tutorial.djangogirls.org/en/template_extending/ -->
 {% block content %} <!-- passes content to base.html --> 
-    <section class="content-section">
-        <h2>Welcome to Electronics Review</h2>
-        <p>Here you can review all electronic products, good or bad!</p>
-    </section>
-
-    <section class="content-section">
-        <h2>Featured Products</h2>
-    </section>
+  <h2>Login</h2>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
 {% endblock %}
 
-{% block title %}Home{% endblock %} <!-- title -->
+{% block title %}login{% endblock %} <!-- title -->

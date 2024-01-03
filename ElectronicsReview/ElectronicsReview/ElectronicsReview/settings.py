@@ -68,6 +68,12 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'ElectronicsReviewApp.backends.CustomUserModelBackend',
+    #'django.contrib.auth.backends.ModelBackend',
+]
+
+
 WSGI_APPLICATION = 'ElectronicsReview.wsgi.application'
 
 
@@ -80,6 +86,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# uncomment for default auth model
+#AUTH_USER_MODEL = 'auth.User'
+
+# uncomment for custom auth model
+AUTH_USER_MODEL = 'ElectronicsReviewApp.CustomUser'
 
 
 # Password validation

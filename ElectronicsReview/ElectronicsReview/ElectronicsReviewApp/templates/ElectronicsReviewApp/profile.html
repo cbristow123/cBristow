@@ -1,0 +1,10 @@
+{% extends 'base.html' %} <!-- passes contents into base.html, which has styling and functionality applied-->
+<!-- Refrenced from: https://tutorial.djangogirls.org/en/template_extending/ -->
+{% block content %} <!-- passes content to base.html --> 
+    <section class="content-section">
+        <h2>About Us</h2>
+        <p> LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM LOREM IPSUM LOREM IPSUM LOREM IPSUM</p>
+    </section>
+{% endblock %}
+
+{% block title %}Home{% endblock %} <!-- title -->
