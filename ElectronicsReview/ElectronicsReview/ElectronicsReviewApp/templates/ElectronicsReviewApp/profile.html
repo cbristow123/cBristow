@@ -1,10 +1,32 @@
-{% extends 'base.html' %} <!-- passes contents into base.html, which has styling and functionality applied-->
-<!-- Refrenced from: https://tutorial.djangogirls.org/en/template_extending/ -->
-{% block content %} <!-- passes content to base.html --> 
+{% extends 'base.html' %}
+
+{% block content %}
     <section class="content-section">
-        <h2>About Us</h2>
-        <p> LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM LOREM IPSUM LOREM IPSUM LOREM IPSUM</p>
+        <h2>Profile</h2>
+        <p>
+            Welcome to your profile page! This is where you can view and manage your profile information.
+            If you would like to make changes, <a href="{% url 'edit_profile' %}">click here to edit your profile</a>.
+        </p>
+        <p>
+            Username: {{ user.profile.user }}
+            <br>
+            Date of Birth: {{ user.profile.date_of_birth }}
+            <br>
+            Location: {{user.profile.location}}
+            <br>
+            Website: {{user.profile.website}}
+            <br>
+            Bio: {{ user.profile.bio}}
+
+        </p>
     </section>
 {% endblock %}
 
-{% block title %}Home{% endblock %} <!-- title -->
+{% block title %}Profile{% endblock %}
+
+<!-- Attributes for profile:
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True) -->
