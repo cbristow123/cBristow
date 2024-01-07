@@ -10,7 +10,7 @@
         <h2>Listed Products</h2>
         {% for product in products %}
             <div class="product">
-                <h3><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h3>
+                <h3><a href="{% url 'product_detail' product.id %}" style="font-size: larger; font-weight: bold;">{{ product.name }}</a></h3>
                 <p>Price: ${{ product.price }}</p>
                 <p>Manufacturer: {{ product.manufacturer }}</p>
                 <p>{{ product.description }}</p>

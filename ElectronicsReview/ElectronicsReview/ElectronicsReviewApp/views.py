@@ -167,7 +167,7 @@ def product_detail(request, product_id):
 """ 
     https://learndjango.com/tutorials/django-password-reset-tutorial 
     https://stackoverflow.com/questions/36350317/django-authentication-issue-after-reseting-password
-    
+
 """
 
 def reset_password(request):
