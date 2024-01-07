@@ -4,7 +4,7 @@ from django.urls import path, reverse
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import user_profile, edit_review, delete_review, ReviewDetailView, contact_us_view, contact_us_success_view
+from .views import user_profile, edit_review, delete_review, ReviewDetailView, contact_us_view, contact_us_success_view, reset_password
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -12,7 +12,7 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('products', views.products, name='products'),
     path('register', views.register, name='register'),
-    path('login', views.login_view, name='login'),
+    path('login/', views.login_view, name='login'),
     path('profile', views.profile, name='profile'),
     path('logout', views.logout_view, name='logout'),
     path('profile/edit', views.edit_profile, name='edit_profile'),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('contact_us/', contact_us_view, name='contact_us'),
     path('contact_us/success/', contact_us_success_view, name='contact_us_success'),
     path('products/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('reset_password/', reset_password, name='reset_password'),
     ]
 
 """  https://stackoverflow.com/questions/38379084/django-not-serving-media-files-if-i-check-for-settings-debug """

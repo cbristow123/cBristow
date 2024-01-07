@@ -3,9 +3,10 @@
 
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegistrationForm, ProfileForm, ReviewForm, ContactForm
+from .forms import RegistrationForm, ProfileForm, ReviewForm, ContactForm, PasswordResetForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .models import Product, Review, Profile
 from django.contrib import messages
@@ -162,3 +163,30 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     reviews = Review.objects.filter(product=product)
     return render(request, 'ElectronicsReviewApp/product_detail.html', {'product': product, 'reviews': reviews})
+
+""" 
+    https://learndjango.com/tutorials/django-password-reset-tutorial 
+    https://stackoverflow.com/questions/36350317/django-authentication-issue-after-reseting-password
+    
+"""
+
+def reset_password(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            new_password = form.cleaned_data['new_password1']
+
+            user = User.objects.get(username=username)
+            user.set_password(new_password)
+            user.save()
+
+            # ppdate the users session to reflect the password change 
+            update_session_auth_hash(request, user)
+
+            messages.success(request, 'Password reset successfully.')
+            return redirect('login')
+    else:
+        form = PasswordResetForm()
+
+    return render(request, 'ElectronicsReviewApp/reset_password.html', {'form': form})
