@@ -1,14 +1,29 @@
-{% extends 'base.html' %} <!-- passes contents into base.html, which has styling and functionality applied-->
-<!-- Refrenced from: https://tutorial.djangogirls.org/en/template_extending/ -->
-{% block content %} <!-- passes content to base.html --> 
+{% extends 'base.html' %}
+
+{% block content %}
     <section class="content-section">
         <h2>Welcome to Electronics Review</h2>
         <p>Here you can review all electronic products, good or bad!</p>
     </section>
 
     <section class="content-section">
-        <h2>Featured Products</h2>
+        <h2>Listed Products</h2>
+        {% for product in products %}
+            <div class="product">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <p>Manufacturer: {{ product.manufacturer }}</p>
+                <p>{{ product.description }}</p>
+                <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="100">
+
+                <!-- Interactive elements for viewing and leaving reviews -->
+                <a href="{% url 'view_reviews' product.id %}" class="btn btn-primary">View All Reviews</a>
+                
+                <!-- as per brief, only display this if authed -->
+                {% if user.is_authenticated %}
+                    <a href="{% url 'leave_reviews' product.id %}" class="btn btn-success">Leave a Review</a>
+                {% endif %}
+            </div>
+        {% endfor %}
     </section>
 {% endblock %}
-
-{% block title %}Home{% endblock %} <!-- title -->

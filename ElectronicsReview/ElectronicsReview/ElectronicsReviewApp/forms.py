@@ -1,16 +1,19 @@
-""" https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms """
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
-from .models import Profile
+from django.contrib.auth.models import User
+from .models import Profile, Review
 
 class RegistrationForm(UserCreationForm):
     class Meta:
-        model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'profile_pic']
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'location', 'date_of_birth', 'website']
+        fields = ['location', 'date_of_birth', 'website', 'bio', 'photo']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'description']

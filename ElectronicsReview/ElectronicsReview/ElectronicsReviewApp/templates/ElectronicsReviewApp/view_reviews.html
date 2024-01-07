@@ -1,0 +1,35 @@
+<!-- Basic view_reviews page (non detailed review, so not a unique page per review)-->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ product.name }} - Reviews</h2>
+    
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    {% if review.reviewer.photo %}
+                        <img src="{{ review.reviewer.photo.url }}" alt="{{ review.reviewer.user.username }}'s Profile Pic" width="50">
+                    {% endif %}
+                    <p><b>Rating: {{ review.rating }}/5</b></p>
+                    <p>{{ review.description }}</p>
+                    <p>Review by: <a href="{% url 'user_profile' user_profile_id=review.reviewer.id %}">{{ review.reviewer.user.username }}</a></p>
+                    <p><b>Click <a href="{% url 'review_detail' product_id=product.id review_id=review.id %}">here</a> to view the full review</b></p>
+
+                    {% if user.is_authenticated and review.reviewer.user == user %}
+                        <a href="{% url 'edit_review' product_id=product.id review_id=review.id %}">Edit</a>
+                        <a href="{% url 'delete_review' product_id=product.id review_id=review.id %}">Delete</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews available for this product.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'leave_reviews' product.id %}" class="btn btn-primary">Add Review</a>
+    {% endif %}
+{% endblock %}
+
+{% block title %}View Reviews{% endblock %}

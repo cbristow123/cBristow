@@ -90,10 +90,10 @@ DATABASES = {
 }
 
 # uncomment for default auth model
-#AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'auth.User'
 
 # uncomment for custom auth model
-AUTH_USER_MODEL = 'ElectronicsReviewApp.CustomUser'
+# AUTH_USER_MODEL = 'ElectronicsReviewApp.CustomUser'
 
 
 # Password validation

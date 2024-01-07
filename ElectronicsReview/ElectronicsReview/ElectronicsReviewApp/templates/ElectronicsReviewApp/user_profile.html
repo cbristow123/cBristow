@@ -1,0 +1,15 @@
+<!-- used to display information on others users profiles  -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>User Profile - {{ user_profile.user.username }}</h2>
+    {% if user_profile.photo %}
+        <img src="{{ user_profile.photo.url }}" alt="{{ user_profile.user.username }}'s Profile Pic" width="100">
+    {% endif %}
+    <p>Bio: {{ user_profile.bio }}</p>
+    <p>Location: {{ user_profile.location }}</p>
+    <p>Date of Birth: {{ user_profile.date_of_birth }}</p>
+    <p>Website: {{ user_profile.website }}</p>
+{% endblock %}
+
+{% block title %}User Profile{% endblock %}

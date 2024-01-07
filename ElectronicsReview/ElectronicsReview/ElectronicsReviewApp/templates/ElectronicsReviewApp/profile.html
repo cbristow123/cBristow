@@ -5,24 +5,33 @@
         <h2>Profile</h2>
         <p>
             Welcome to your profile page! This is where you can view and manage your profile information.
-            If you would like to make changes, <a href="{% url 'edit_profile' %}">click here to edit your profile</a>.
+            <br><br>
+            <a href="{% url 'edit_profile' %}">If you would like to make changes click here to edit your profile</a>
         </p>
         <p>
             Username: {{ user.profile.user }}
             <br>
             Date of Birth: {{ user.profile.date_of_birth }}
             <br>
-            Location: {{user.profile.location}}
+            Location: {{ user.profile.location }}
             <br>
-            Website: {{user.profile.website}}
+            Website: {{ user.profile.website }}
             <br>
-            Bio: {{ user.profile.bio}}
-
+            Bio: {{ user.profile.bio }}
+            <br>
+            <!-- error handling if no profile photo set to prevent page crashes -->
+            {% if user.profile.photo %}
+                Profile Pic: <br> <img src="{{ user.profile.photo.url }}" alt="{{ user.username }}'s Profile Pic" width="100">
+            {% else %}
+                Profile Pic: No photo uploaded
+            {% endif %}
         </p>
     </section>
 {% endblock %}
 
 {% block title %}Profile{% endblock %}
+
+
 
 <!-- Attributes for profile:
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

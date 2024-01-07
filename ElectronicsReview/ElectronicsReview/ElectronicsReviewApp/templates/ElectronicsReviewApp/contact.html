@@ -1,14 +1,14 @@
 {% extends 'base.html' %} <!-- passes contents into base.html, which has styling and functionality applied-->
 <!-- Refrenced from: https://tutorial.djangogirls.org/en/template_extending/ -->
 {% block content %} <!-- passes content to base.html --> 
+    <!-- Placeholder Contact Details -->
     <section class="content-section">
-        <h2>Welcome to Electronics Review</h2>
-        <p>Here you can review all electronic products, good or bad!</p>
-    </section>
-
-    <section class="content-section">
-        <h2>Featured Products</h2>
+        <h2>Contact Details</h2>
+        <p>Physical Address: <br> Fakeaddress1 <br> Fakeaddress2 <br> Fakepostcode</p>
+        <p>Email: FakeEmail@Fake.com</p>
+        <p>Phone: 07192318FAKE</p>
     </section>
 {% endblock %}
 
-{% block title %}Home{% endblock %} <!-- title -->
+{% block title %}Contact Us{% endblock %} 
+

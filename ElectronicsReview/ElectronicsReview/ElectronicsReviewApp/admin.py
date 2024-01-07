@@ -1,40 +1,15 @@
 from django.contrib import admin
-from .models import Product, CustomUser, Profile
+from django.contrib.auth.admin import UserAdmin
+from .models import Product, Profile, Review
 
-# Register your models here.
-admin.site.register(Product)
-admin.site.register(Profile)
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['name', 'manufacturer', 'price']
 
-""" work in progress """
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'location', 'date_of_birth', 'website']
 
-@admin.register(CustomUser)
-class CustomUserAdmin(admin.ModelAdmin):
-    actions = ['custom_delete']
-
-    def custom_delete(self, request, queryset):
-        for user in queryset:
-            try:
-                profile = user.profile
-                profile.delete()
-            except Profile.DoesNotExist:
-                pass  # No profile to delete
-
-            user.delete()
-
-    custom_delete.short_description = "Delete selected users and their profiles"
-
-
-
-
-
-
-
-
-
-
-""" from django.contrib import admin
-from .models import Product, CustomUser, Profile
-
-admin.site.register(Product)
-admin.site.register(CustomUser)
-admin.site.register(Profile) """
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['product', 'reviewer', 'rating', 'description']

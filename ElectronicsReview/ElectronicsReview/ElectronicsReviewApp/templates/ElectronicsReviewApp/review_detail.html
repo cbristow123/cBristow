@@ -1,0 +1,37 @@
+<!-- this contains the 'in depth' of each review page. This will contain a unique ID for each product & review -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ review.product.name }} - Review Details</h2>
+    
+    <p>
+        Rating: {{ review.rating }}/5
+        Review by: {{ review.reviewer.user.username }}
+    </p>
+    <p>{{ review.description }}</p>
+    <p>Review by: <a href="{% url 'user_profile' review.reviewer.user.id %}">{{ review.reviewer.user.username }}</a></p>
+    
+    {% if review.reviewer.photo %}
+        <div class="profile-photo">
+            <img src="{{ review.reviewer.photo.url }}" alt="{{ review.reviewer.user.username }}'s Profile Pic" width="100">
+        </div>
+    {% elif review.reviewer.profile %}
+        <div class="profile-photo">
+            {% if review.reviewer.profile.photo %}
+                <p>Photo URL: {{ review.reviewer.profile.photo.url }}</p>
+                <img src="{{ review.reviewer.profile.photo.url }}" alt="{{ review.reviewer.user.username }}'s Profile Pic" width="100">
+            {% else %}
+                <p>No photo available for the reviewer's profile.</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No profile found for the reviewer.</p>
+    {% endif %}
+
+    {% if user.is_authenticated and review.reviewer.user == user %}
+        <a href="{% url 'edit_review' product_id=review.product.id review_id=review.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'delete_review' product_id=review.product.id review_id=review.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+{% endblock %}
+
+{% block title %}Review Details{% endblock %}
