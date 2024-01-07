@@ -5,8 +5,11 @@
     {% if user_profile.photo %}
         <img src="{{ user_profile.photo.url }}" alt="{{ user_profile.user.username }}'s Profile Pic" width="100">
     {% endif %}
+    <p>Full Name: {{ user_profile.full_name }}</p>  
     <p>Bio: {{ user_profile.bio }}</p>
-    <p>Location: {{ user_profile.location }}</p>
+    <p>City: {{ user_profile.city }}</p>  
+    <p>Country: {{ user_profile.country }}</p>  
+    <p>Address: {{ user_profile.address }}</p>  
     <p>Date of Birth: {{ user_profile.date_of_birth }}</p>
     <p>Website: {{ user_profile.website }}</p>
 

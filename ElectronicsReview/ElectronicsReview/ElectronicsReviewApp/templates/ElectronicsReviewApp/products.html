@@ -13,6 +13,8 @@
                 <h3><a href="{% url 'product_detail' product.id %}" style="font-size: larger; font-weight: bold;">{{ product.name }}</a></h3>
                 <p>Price: ${{ product.price }}</p>
                 <p>Manufacturer: {{ product.manufacturer }}</p>
+                <p>Category: {{ product.category }}</p> 
+                <p>Date of Release: {{ product.release_date }}</p>  
                 <p>{{ product.description }}</p>
                 <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="100">
 

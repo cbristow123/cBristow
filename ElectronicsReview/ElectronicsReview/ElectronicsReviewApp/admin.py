@@ -4,11 +4,11 @@ from .models import Product, Profile, Review, ContactSubmission
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'manufacturer', 'price']
+    list_display = ['name', 'manufacturer', 'price', 'category', 'release_date']
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'location', 'date_of_birth', 'website']
+    list_display = ['user', 'full_name', 'date_of_birth', 'city', 'country', 'address', 'website', 'bio', 'get_profile_picture']
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):

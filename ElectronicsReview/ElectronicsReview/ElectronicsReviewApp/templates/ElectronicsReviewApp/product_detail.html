@@ -5,6 +5,8 @@
         <h2>{{ product.name }}</h2>
         <p>Price: ${{ product.price }}</p>
         <p>Manufacturer: {{ product.manufacturer }}</p>
+        <p>Category: {{ product.category }}</p>
+        <p>Date of Release: {{ product.release_date }}</p>
         <p>{{ product.description }}</p>
         <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="200">
     </section>
@@ -15,9 +17,17 @@
             <ul>
                 {% for review in reviews %}
                     <li>
-                        <a href="{% url 'user_profile' user_profile_id=review.reviewer.user.id %}">
-                            {{ review.reviewer.user.username }}
-                        </a> says: {{ review.description }} (Rating: {{ review.rating }}/5)
+                        {{ review.reviewer.profile.full_name }} says: {{ review.description }} (Rating: {{ review.rating }}/5)
+                        <br>
+                        Author: <a href="{% url 'review_detail' product_id=product.id review_id=review.id %}">
+                            {{ review.author }}
+                        </a>
+                        <br>
+                        Date Posted: <a href="{% url 'review_detail' product_id=product.id review_id=review.id %}">
+                            {{ review.date_posted }}
+                        </a>
+                        <br>
+                        <strong><a href="{% url 'review_detail' product_id=product.id review_id=review.id %}">Full Review</a></strong>
                     </li>
                 {% endfor %}
             </ul>

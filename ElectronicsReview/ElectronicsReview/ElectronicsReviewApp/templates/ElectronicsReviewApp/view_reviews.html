@@ -8,15 +8,17 @@
         <ul>
             {% for review in reviews %}
                 <li>
-                    {% if review.reviewer.photo %}
-                        <img src="{{ review.reviewer.photo.url }}" alt="{{ review.reviewer.user.username }}'s Profile Pic" width="50">
+                    {% if review.reviewer.profile.photo %}
+                        <img src="{{ review.reviewer.profile.photo.url }}" alt="{{ review.reviewer.username }}'s Profile Pic" width="50">
                     {% endif %}
                     <p><b>Rating: {{ review.rating }}/5</b></p>
                     <p>{{ review.description }}</p>
-                    <p>Review by: <a href="{% url 'user_profile' user_profile_id=review.reviewer.id %}">{{ review.reviewer.user.username }}</a></p>
+                    <p>Review by: <a href="{% url 'user_profile' user_profile_id=review.reviewer.profile.id %}">{{ review.reviewer.username }}</a></p>
+                    <p>Author: {{ review.author }}</p>
+                    <p>Date Posted: {{ review.date_posted }}</p>
                     <p><b>Click <a href="{% url 'review_detail' product_id=product.id review_id=review.id %}">here</a> to view the full review</b></p>
 
-                    {% if user.is_authenticated and review.reviewer.user == user %}
+                    {% if user.is_authenticated and review.reviewer == user %}
                         <a href="{% url 'edit_review' product_id=product.id review_id=review.id %}">Edit</a>
                         <a href="{% url 'delete_review' product_id=product.id review_id=review.id %}">Delete</a>
                     {% endif %}

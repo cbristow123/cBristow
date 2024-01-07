@@ -9,11 +9,17 @@
             <a href="{% url 'edit_profile' %}">If you would like to make changes, click here to edit your profile</a>
         </p>
         <p>
-            Username: {{ user.profile.user }}
+            Full Name: {{ user.profile.full_name }}
+            <br>
+            Username: {{ user.username }}
             <br>
             Date of Birth: {{ user.profile.date_of_birth }}
             <br>
-            Location: {{ user.profile.location }}
+            City: {{ user.profile.city }}
+            <br>
+            Country: {{ user.profile.country }}
+            <br>
+            Address: {{ user.profile.address }}
             <br>
             Website: {{ user.profile.website }}
             <br>
@@ -21,7 +27,7 @@
             <br>
             <!-- Error handling if no profile photo is set to prevent page crashes -->
             {% if user.profile.photo %}
-                Profile Pic: <br> <img src="{{ user.profile.photo.url }}" alt="{{ user.username }}'s Profile Pic" width="100">
+                Profile Pic: <br> <img src="{{ user.profile.photo.url }}" alt="{{ user.profile.full_name }}'s Profile Pic" width="100">
             {% else %}
                 Profile Pic: No photo uploaded
             {% endif %}
@@ -47,12 +53,3 @@
 {% endblock %}
 
 {% block title %}Profile{% endblock %}
-
-
-
-<!-- Attributes for profile:
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True, null=True)
-    location = models.CharField(max_length=100, blank=True, null=True)
-    date_of_birth = models.DateField(blank=True, null=True)
-    website = models.URLField(blank=True, null=True) -->

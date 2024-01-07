@@ -28,7 +28,8 @@ def products(request):
     return render(request, 'ElectronicsReviewApp/products.html', {'products': products})
 
 def profile(request):
-    user_reviews = Review.objects.filter(reviewer=request.user.profile)
+    user_reviews = Review.objects.filter(reviewer=request.user.profile.user)
+
     return render(request, 'ElectronicsReviewApp/profile.html', {'user_reviews': user_reviews})
 
 def register(request):
@@ -94,12 +95,9 @@ def leave_reviews(request, product_id):
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-
-            # debugging to troubleshoot issues with correctly requesting user profs
-            print("User Profile:", request.user.profile)
-
-            review.reviewer = request.user.profile
+            review.reviewer = request.user.profile.user  # Use the User instance associated with the Profile
             review.product = product
+            review.author = request.user.username  # Set the author attribute to the username
             review.save()
             return redirect('view_reviews', product_id=product_id)
     else:
@@ -108,9 +106,12 @@ def leave_reviews(request, product_id):
     return render(request, 'ElectronicsReviewApp/leave_reviews.html', {'product': product, 'form': form})
 
 
+
+
 def user_profile(request, user_profile_id):
     user_profile = get_object_or_404(Profile, id=user_profile_id)
-    user_profile_reviews = Review.objects.filter(reviewer=user_profile)
+    user_profile_reviews = Review.objects.filter(reviewer=user_profile.user)
+
     return render(request, 'ElectronicsReviewApp/user_profile.html', {'user_profile': user_profile, 'user_profile_reviews': user_profile_reviews})
 
 def edit_review(request, product_id, review_id):

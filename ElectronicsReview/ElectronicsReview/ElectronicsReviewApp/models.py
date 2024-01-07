@@ -19,17 +19,21 @@ class Product(models.Model):
     manufacturer = models.CharField(max_length=50)
     description = models.TextField(max_length=512)
     photo = models.ImageField(upload_to='img/', blank=True, null=True)
+    category = models.CharField(max_length=50)  # new field to match brief
+    release_date = models.DateField()  # new field to match brief
 
     def __str__(self):
         return self.name
-    
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True, null=True)
-    location = models.CharField(max_length=100, blank=True, null=True)
+    full_name = models.CharField(max_length=150, blank=True, null=True) 
+    city = models.CharField(max_length=100, blank=True, null=True)  # change to city as per brief
+    country = models.CharField(max_length=100, blank=True, null=True)  
+    address = models.TextField(blank=True, null=True)  
     date_of_birth = models.DateField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
     photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
 
     def __str__(self):
@@ -50,13 +54,15 @@ class Review(models.Model):
         (5, '5 - Excellent'),
     ]
 
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='reviews')
-    reviewer = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    reviewer = models.ForeignKey(User, on_delete=models.CASCADE)  # Changed to User
     rating = models.IntegerField(choices=RATING_CHOICES)
     description = models.TextField(max_length=512)
+    author = models.CharField(max_length=100)  # New field
+    date_posted = models.DateTimeField(auto_now_add=True)  # New field
 
     def __str__(self):
-        return f"Review for {self.product.name} by {self.reviewer.user.username}"
+        return f"Review for {self.product.name} by {self.reviewer.username}"
     
 class ContactSubmission(models.Model):
     name = models.CharField(max_length=100)
