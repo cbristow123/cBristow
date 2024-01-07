@@ -1,6 +1,6 @@
-{% extends 'base.html' %} <!-- passes contents into base.html, which has styling and functionality applied-->
-<!-- Refrenced from: https://tutorial.djangogirls.org/en/template_extending/ -->
-{% block content %} <!-- passes content to base.html --> 
+{% extends 'base.html' %}
+
+{% block content %}
     <section class="content-section">
         <h2>Welcome to Electronics Review</h2>
         <p>Here you can review all electronic products, good or bad!</p>
@@ -8,7 +8,20 @@
 
     <section class="content-section">
         <h2>Featured Products</h2>
+        {% if featured_products %}
+            <ul>
+                {% for product in featured_products %}
+                    <li>
+                        <a href="{% url 'product_detail' product_id=product.id %}">
+                            {{ product.name }} - {{ product.manufacturer }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No featured products available.</p>
+        {% endif %}
     </section>
 {% endblock %}
 
-{% block title %}Home{% endblock %} <!-- title -->
+{% block title %}Home{% endblock %}

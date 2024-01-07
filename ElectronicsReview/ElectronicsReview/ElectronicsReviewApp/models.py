@@ -5,7 +5,7 @@ I have fully removed the CustomUser class in this version. This is due to DB FK 
 due to changing auth_type mid project. The documentation supporting this can be found here:
 https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#changing-to-a-custom-user-model-mid-project
 This meant a full Database rebuild, removing all migrations and starting a fresh. Old migrations can be found
-at ElectronicsReviewApp/migrationsOLD
+at ElectronicsReviewApp/migrationsOLD for marking purposes
 """
 
 from django.db import models
@@ -57,3 +57,11 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review for {self.product.name} by {self.reviewer.user.username}"
+    
+class ContactSubmission(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    question = models.TextField()
+
+    def __str__(self):
+        return self.name

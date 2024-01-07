@@ -6,7 +6,7 @@
         <p>
             Welcome to your profile page! This is where you can view and manage your profile information.
             <br><br>
-            <a href="{% url 'edit_profile' %}">If you would like to make changes click here to edit your profile</a>
+            <a href="{% url 'edit_profile' %}">If you would like to make changes, click here to edit your profile</a>
         </p>
         <p>
             Username: {{ user.profile.user }}
@@ -19,13 +19,30 @@
             <br>
             Bio: {{ user.profile.bio }}
             <br>
-            <!-- error handling if no profile photo set to prevent page crashes -->
+            <!-- Error handling if no profile photo is set to prevent page crashes -->
             {% if user.profile.photo %}
                 Profile Pic: <br> <img src="{{ user.profile.photo.url }}" alt="{{ user.username }}'s Profile Pic" width="100">
             {% else %}
                 Profile Pic: No photo uploaded
             {% endif %}
         </p>
+    </section>
+
+    <section class="content-section">
+        <h2>Your Reviews</h2>
+        {% if user_reviews %}
+            <ul>
+                {% for review in user_reviews %}
+                    <li>
+                        <a href="{% url 'review_detail' product_id=review.product.id review_id=review.id %}">
+                            {{ review.product.name }} - {{ review.description }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You haven't left any reviews yet.</p>
+        {% endif %}
     </section>
 {% endblock %}
 

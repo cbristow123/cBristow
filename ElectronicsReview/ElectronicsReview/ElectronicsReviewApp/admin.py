@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Product, Profile, Review
+from .models import Product, Profile, Review, ContactSubmission
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -13,3 +13,10 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ['product', 'reviewer', 'rating', 'description']
+
+class ContactSubmissionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'question')
+    search_fields = ('name', 'email', 'question')
+    list_filter = ('name', 'email')
+
+admin.site.register(ContactSubmission, ContactSubmissionAdmin)

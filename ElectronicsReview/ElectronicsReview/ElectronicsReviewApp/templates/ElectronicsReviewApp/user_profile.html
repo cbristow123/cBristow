@@ -1,4 +1,3 @@
-<!-- used to display information on others users profiles  -->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -10,6 +9,23 @@
     <p>Location: {{ user_profile.location }}</p>
     <p>Date of Birth: {{ user_profile.date_of_birth }}</p>
     <p>Website: {{ user_profile.website }}</p>
+
+    <section class="content-section">
+        <h2>{{ user_profile.user.username }}'s Reviews</h2>
+        {% if user_profile_reviews %}
+            <ul>
+                {% for review in user_profile_reviews %}
+                    <li>
+                        <a href="{% url 'review_detail' product_id=review.product.id review_id=review.id %}">
+                            Review for {{ review.product.name }} - {{ review.description }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ user_profile.user.username }} hasn't left any reviews yet.</p>
+        {% endif %}
+    </section>
 {% endblock %}
 
 {% block title %}User Profile{% endblock %}

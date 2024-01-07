@@ -3,16 +3,18 @@
 
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegistrationForm, ProfileForm, ReviewForm
+from .forms import RegistrationForm, ProfileForm, ReviewForm, ContactForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from .models import Product, Review, Profile
 from django.contrib import messages
 from django.views import View
+from django.urls import reverse
 
 def home(request):
-    return render(request, 'ElectronicsReviewApp/home.html')
+    featured_products = Product.objects.all()[:3]
+    return render(request, 'ElectronicsReviewApp/home.html', {'featured_products': featured_products})
 
 def about(request):
     return render(request, 'ElectronicsReviewApp/about.html')
@@ -25,7 +27,8 @@ def products(request):
     return render(request, 'ElectronicsReviewApp/products.html', {'products': products})
 
 def profile(request):
-    return render(request, 'ElectronicsReviewApp/profile.html')
+    user_reviews = Review.objects.filter(reviewer=request.user.profile)
+    return render(request, 'ElectronicsReviewApp/profile.html', {'user_reviews': user_reviews})
 
 def register(request):
     if request.method == 'POST':
@@ -106,7 +109,8 @@ def leave_reviews(request, product_id):
 
 def user_profile(request, user_profile_id):
     user_profile = get_object_or_404(Profile, id=user_profile_id)
-    return render(request, 'ElectronicsReviewApp/user_profile.html', {'user_profile': user_profile})
+    user_profile_reviews = Review.objects.filter(reviewer=user_profile)
+    return render(request, 'ElectronicsReviewApp/user_profile.html', {'user_profile': user_profile, 'user_profile_reviews': user_profile_reviews})
 
 def edit_review(request, product_id, review_id):
     product = get_object_or_404(Product, id=product_id)
@@ -138,3 +142,23 @@ class ReviewDetailView(View):
     def get(self, request, product_id, review_id):
         review = get_object_or_404(Review, product_id=product_id, id=review_id)
         return render(request, self.template_name, {'review': review})
+
+def contact_us_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('contact_us_success'))
+    else:
+        form = ContactForm()
+
+    return render(request, 'ElectronicsReviewApp/contact_us.html', {'form': form})
+
+
+def contact_us_success_view(request):
+    return render(request, 'ElectronicsReviewApp/contact_us_success.html')
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    reviews = Review.objects.filter(product=product)
+    return render(request, 'ElectronicsReviewApp/product_detail.html', {'product': product, 'reviews': reviews})

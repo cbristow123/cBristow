@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="content-section">
+        <h2>{{ product.name }}</h2>
+        <p>Price: ${{ product.price }}</p>
+        <p>Manufacturer: {{ product.manufacturer }}</p>
+        <p>{{ product.description }}</p>
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="200">
+    </section>
+
+    <section class="content-section">
+        <h2>Product Reviews</h2>
+        {% if reviews %}
+            <ul>
+                {% for review in reviews %}
+                    <li>
+                        <a href="{% url 'user_profile' user_profile_id=review.reviewer.user.id %}">
+                            {{ review.reviewer.user.username }}
+                        </a> says: {{ review.description }} (Rating: {{ review.rating }}/5)
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No reviews for this product yet.</p>
+        {% endif %}
+    </section>
+{% endblock %}
